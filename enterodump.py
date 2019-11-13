@@ -9,6 +9,7 @@ parser = argparse.ArgumentParser(description='Script for downloading FASTA files
 requiredNamed = parser.add_argument_group('Required arguments')
 requiredNamed.add_argument('-d', '--database', help='The database containing the assemblies (eg. clostridium)', required=True)
 requiredNamed.add_argument('-t', '--token', help='Enterobase API-Token (see: https://enterobase.readthedocs.io/en/latest/api/api-getting-started.html)', required=True)
+requiredNamed.add_argument('-l', '--list', help='The list of barcodes to dump', required=True)
 args = parser.parse_args()
 
 # API Token
@@ -54,9 +55,8 @@ def writeFastaToDisk(barcode, link):
 def downloadFasta(barcode):
     writeFastaToDisk(barcode, getFastaLink(barcode))
 
-with open("barcode_list.txt") as f:
-    next(f)
+with open(args.list) as f:
     for line in f:
-        barcode = line.strip().split('\t')[-1]
+        barcode = line.strip()
         print "Downloading FASTA for barcode %s..." % barcode,
         downloadFasta(barcode)

@@ -1,2 +1,2 @@
-Barcode	Status	Assembly Barcode
-CLO_AA0529AA	Assembled	CLO_AA0229AA_AS
+CLO_AA0229AA_AS
+CLO_AA0239AA_AS

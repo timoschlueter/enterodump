@@ -1,7 +1,7 @@
 # Enterodump
 
 Script for downloading FASTA files from [Enterobase](http://enterobase.warwick.ac.uk) using barcodes.
-Takes a list of barcodes in a file called barcode_list.txt (see example.txt) and downloads the files to the download/-subdirectory of the scripts path.
+Takes a list of barcodes in a file (see example.txt) and downloads the files to the download/-subdirectory of the scripts path.
 
 ### Note
 
@@ -10,11 +10,11 @@ You can request one [here](https://enterobase.readthedocs.io/en/latest/api/api-g
 
 ## Usage
 
-```python enterodump.py -d <DATABASE> -t <API-TOKEN>```
+```python enterodump.py -d <DATABASE> -l <TEXTFILE> -t <API-TOKEN>```
 
 ## Example
 
-```python enterodump.py -d clostridium -t eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4OTQwODI5Miwia...```
+```python enterodump.py -d clostridium -l example.txt -t eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4OTQwODI5Miwia...```
 
 ## Output
 
