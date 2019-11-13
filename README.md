@@ -1,7 +1,7 @@
 # Enterodump
 
-Script for downloading FASTA files from [Enterobase](http://enterobase.warwick.ac.uk) using barcodes.
-Takes a list of barcodes in a file (see example.txt) and downloads the files to the download/-subdirectory of the scripts path.
+Script for downloading FASTA files from [Enterobase](http://enterobase.warwick.ac.uk) using assembly barcodes.
+Takes a list of assembly barcodes in a file (see example.txt) and downloads the files to the download/-subdirectory of the scripts path.
 
 ### Note
 
