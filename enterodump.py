@@ -26,31 +26,38 @@ def createAuthenticatedRequest(address):
     return request
 
 def getFastaLink(barcode):
-    response = urllib2.urlopen(createAuthenticatedRequest(baseEndpoint % (args.database, barcode)))
-    data = json.load(response)
-    if data["Assemblies"]:
-        if data["Assemblies"][0]["download_fasta_link"]:
-            return (data["Assemblies"][0]["download_fasta_link"])
+    try:
+        response = urllib2.urlopen(createAuthenticatedRequest(baseEndpoint % (args.database, barcode)))
+        data = json.load(response)
+        if data["Assemblies"]:
+            if data["Assemblies"][0]["download_fasta_link"]:
+                return (data["Assemblies"][0]["download_fasta_link"])
+            else:
+                print("failed. (FASTA not found in database)")
         else:
-            print("failed.")
-    else:
-        print("failed.")
-        
+            print("failed. (FASTA not found in database)")
+    except urllib2.HTTPError, e:
+        print("failed. (%s)" % e)
+    
 def writeFastaToDisk(barcode, link):
-    response = urllib2.urlopen(createAuthenticatedRequest(link))
-    outputfile = response.read()
-    if not os.path.exists("download"):
+    if link:
         try:
-            os.makedirs("download")
-            print("done.")
-        except OSError as exc:
-            if exc.errno != errno.EEXIST:
-                print("failed.")
-                raise
-    else:
-        with open("download/" + barcode + ".fasta", 'wb') as f:
-            f.write(outputfile)
-            print("done.")
+            response = urllib2.urlopen(createAuthenticatedRequest(link))
+            outputfile = response.read()
+            if not os.path.exists("download"):
+                try:
+                    os.makedirs("download")
+                    print("done.")
+                except OSError as exc:
+                    if exc.errno != errno.EEXIST:
+                        print("failed. (Could not create download directory)")
+                        raise
+            else:
+                with open("download/" + barcode + ".fasta", 'wb') as f:
+                    f.write(outputfile)
+                    print("done.")
+        except urllib2.HTTPError, e:
+            print("failed. (%s)" % e)
     
 def downloadFasta(barcode):
     writeFastaToDisk(barcode, getFastaLink(barcode))
